@@ -6,7 +6,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 const props = defineProps({
     profile: { type: Object, required: true },
     // Minimum progress animation duration (ms)
-    duration: { type: Number, default: 2600 },
+    duration: { type: Number, default: 1100 },
 });
 
 const visible = ref(true);
@@ -34,7 +34,7 @@ function run(now) {
     const t = Math.min((now - startTime) / props.duration, 1);
     progress.value = Math.round(ease(t) * 100);
     if (t < 1) frame = requestAnimationFrame(run);
-    else setTimeout(finish, 450);
+    else setTimeout(finish, 150);
 }
 
 function finish() {
@@ -47,7 +47,7 @@ onMounted(() => {
     document.documentElement.style.overflow = 'hidden';
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         progress.value = 100;
-        setTimeout(finish, 600);
+        setTimeout(finish, 300);
         return;
     }
     frame = requestAnimationFrame(run);
@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
             class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-bg px-6"
             role="status"
             aria-live="polite"
-            @click="progress >= 60 && finish()"
+            @click="finish()"
         >
             <!-- Background -->
             <div class="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
@@ -82,15 +82,15 @@ onBeforeUnmount(() => {
             </div>
 
             <!-- Name & role -->
-            <h1 class="splash-rise mt-10 text-center font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl" style="animation-delay: 0.15s">
+            <h1 class="splash-rise mt-10 text-center font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl" style="animation-delay: 0.05s">
                 {{ profile.name.split(' ')[0] }}{{ ' ' }}<span class="text-gradient">{{ profile.name.split(' ').slice(1).join(' ') }}</span>
             </h1>
-            <p class="splash-rise mt-3 font-mono text-sm text-muted" style="animation-delay: 0.3s">
+            <p class="splash-rise mt-3 font-mono text-sm text-muted" style="animation-delay: 0.1s">
                 {{ profile.role }} · {{ profile.focus }}
             </p>
 
             <!-- Progress -->
-            <div class="splash-rise mt-10 w-full max-w-sm" style="animation-delay: 0.45s">
+            <div class="splash-rise mt-10 w-full max-w-sm" style="animation-delay: 0.15s">
                 <div class="mb-2 flex items-center justify-between font-mono text-xs">
                     <span class="truncate text-muted"><span class="text-accent">&gt;</span> {{ message }}</span>
                     <span class="ml-3 text-ink tabular-nums">{{ progress }}%</span>
@@ -105,7 +105,7 @@ onBeforeUnmount(() => {
                 </div>
             </div>
 
-            <p v-if="progress >= 60" class="absolute bottom-8 font-mono text-[11px] text-muted/70">click anywhere to continue</p>
+            <p class="absolute bottom-8 font-mono text-[11px] text-muted/70">click anywhere to skip</p>
         </div>
     </transition>
 </template>

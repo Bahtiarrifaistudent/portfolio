@@ -271,16 +271,16 @@
 
 .splash-ring {
     background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--cyan), transparent 70%, var(--accent));
-    animation: splash-spin 1.6s linear infinite;
+    animation: splash-spin 1s linear infinite;
     mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 3px));
 }
 
 .splash-pop {
-    animation: splash-pop 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+    animation: splash-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
 }
 
 .splash-rise {
-    animation: splash-rise 0.7s ease both;
+    animation: splash-rise 0.45s ease both;
 }
 
 .splash-orb {
@@ -288,7 +288,7 @@
 }
 
 .splash-leave {
-    transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+    transition: clip-path 0.5s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease;
 }
 
 .splash-leave-to {
