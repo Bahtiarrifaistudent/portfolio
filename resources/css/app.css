@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.vue';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Token warna: terang di :root, gelap di .dark */
+:root {
+    --bg: #faf7ff;
+    --surface: #ffffff;
+    --surface-2: #f3edff;
+    --line: rgb(59 7 100 / 0.12);
+    --text: #1a0f2e;
+    --muted: #5f5478;
+    --accent: #c026d3;
+    --accent-2: #7c3aed;
+    --laravel: #e0261b;
+    --cyan: #0891b2;
+    --grid: rgb(59 7 100 / 0.07);
+}
+
+.dark {
+    --bg: #0b0616;
+    --surface: #130b22;
+    --surface-2: #1b1030;
+    --line: rgb(255 255 255 / 0.08);
+    --text: #f4f0ff;
+    --muted: #a99fc2;
+    --accent: #e879f9;
+    --accent-2: #a855f7;
+    --laravel: #ff2d20;
+    --cyan: #22d3ee;
+    --grid: rgb(255 255 255 / 0.045);
+}
+
+@theme inline {
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-line: var(--line);
+    --color-ink: var(--text);
+    --color-muted: var(--muted);
+    --color-accent: var(--accent);
+    --color-accent-2: var(--accent-2);
+    --color-laravel: var(--laravel);
+    --color-cyan: var(--cyan);
+}
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+    html {
+        background: var(--bg);
+        color: var(--text);
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::selection {
+        background: color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+
+    section[id] {
+        scroll-margin-top: 5rem;
+    }
+}
+
+@layer components {
+    .container-page {
+        @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .card {
+        @apply rounded-2xl border border-line bg-surface;
+    }
+
+    .section-kicker {
+        @apply inline-flex items-center gap-2 font-mono text-xs font-medium tracking-wider text-accent uppercase;
+    }
+
+    .section-title {
+        @apply mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-bg transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    }
+
+    .chip {
+        @apply inline-flex items-center rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[11px] text-muted;
+    }
+
+    .bg-grid {
+        background-image:
+            linear-gradient(var(--grid) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 44px 44px;
+    }
+
+    .text-gradient {
+        background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 55%, var(--cyan) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+/* Animasi muncul saat scroll (dipakai oleh directive v-reveal) */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.cursor-blink {
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes packet {
+    0% {
+        left: 0%;
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes packet-y {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+.animate-packet {
+    animation: packet 3.2s linear infinite;
+}
+
+.animate-packet-y {
+    animation: packet-y 3.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
