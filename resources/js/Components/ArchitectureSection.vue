@@ -5,7 +5,7 @@ const props = defineProps({
     layers: { type: Array, required: true },
 });
 
-// Kelas ditulis lengkap agar terbaca oleh Tailwind saat build.
+// Classes are written out in full so Tailwind can detect them at build time.
 const tone = {
     fuchsia: { text: 'text-accent', bg: 'bg-accent', soft: 'bg-accent/10', ring: 'border-accent', shadow: 'shadow-accent/25' },
     red: { text: 'text-laravel', bg: 'bg-laravel', soft: 'bg-laravel/10', ring: 'border-laravel', shadow: 'shadow-laravel/25' },
@@ -28,16 +28,16 @@ const current = computed(() => props.layers.find((l) => l.key === selected.value
     <section id="architecture" class="relative border-y border-line bg-surface/50 py-20 sm:py-28">
         <div class="container-page">
             <div class="max-w-2xl">
-                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Cara Saya Membangun</p>
-                <h2 v-reveal="60" class="section-title">Dari klik pengguna sampai ke database.</h2>
+                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />How I Build</p>
+                <h2 v-reveal="60" class="section-title">From a user's click all the way to the database.</h2>
                 <p v-reveal="120" class="mt-4 text-muted">
-                    Setiap request melewati lapisan-lapisan ini. Pilih salah satu untuk melihat apa yang saya kerjakan di sana.
+                    Every request passes through these layers. Pick one to see what I work on there.
                 </p>
             </div>
 
-            <!-- Alur lapisan -->
+            <!-- Layer flow -->
             <div v-reveal="160" class="relative mt-12">
-                <!-- Jalur paket (desktop: horizontal, mobile: vertikal) -->
+                <!-- Packet path (desktop: horizontal, mobile: vertical) -->
                 <div class="pointer-events-none absolute top-9 right-[12%] left-[12%] hidden h-px bg-line md:block">
                     <span class="animate-packet absolute -top-1 size-2 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
                     <span class="animate-packet absolute -top-1 size-2 rounded-full bg-cyan shadow-[0_0_12px_var(--cyan)] [animation-delay:1.6s]" />
@@ -81,9 +81,9 @@ const current = computed(() => props.layers.find((l) => l.key === selected.value
                 </ol>
             </div>
 
-            <!-- Detail lapisan -->
+            <!-- Layer details -->
             <transition mode="out-in" enter-from-class="opacity-0 translate-y-2" enter-active-class="transition duration-300" leave-to-class="opacity-0" leave-active-class="transition duration-150">
-                <div :key="current.key" class="card mt-10 grid gap-6 p-6 sm:p-8 md:grid-cols-[1.2fr_1fr] md:items-center">
+                <div :key="current.key" class="card card-static mt-10 grid gap-6 p-6 sm:p-8 md:grid-cols-[1.2fr_1fr] md:items-center">
                     <div>
                         <p class="font-mono text-xs" :class="tone[current.color].text">layer::{{ current.key }}</p>
                         <h3 class="mt-2 font-display text-2xl font-bold text-ink">{{ current.title }} <span class="text-muted">/ {{ current.subtitle }}</span></h3>

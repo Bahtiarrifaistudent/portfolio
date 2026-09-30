@@ -7,15 +7,15 @@ defineProps({
 <template>
     <section id="about" class="py-20 sm:py-28">
         <div class="container-page grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-            <!-- Kartu profil -->
+            <!-- Profile card -->
             <div v-reveal class="relative mx-auto w-full max-w-sm self-start lg:mx-0">
                 <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border-2 border-dashed border-accent/40" />
-                <div class="card relative overflow-hidden rounded-3xl">
+                <div v-tilt="6" class="card card-static relative overflow-hidden rounded-3xl">
                     <div class="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-accent-2 via-accent to-cyan">
                         <img
                             v-if="profile.photo"
                             :src="profile.photo"
-                            :alt="`Foto ${profile.name}`"
+                            :alt="`Photo of ${profile.name}`"
                             class="size-full object-cover"
                             loading="lazy"
                         />
@@ -35,12 +35,12 @@ defineProps({
                 </div>
             </div>
 
-            <!-- Cerita -->
+            <!-- Story -->
             <div>
-                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Tentang Saya</p>
+                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Who I Am</p>
                 <h2 v-reveal="60" class="section-title">
-                    Backend yang kokoh,<br class="hidden sm:block" />
-                    tampilan yang <span class="text-gradient">nyaman dipakai</span>.
+                    A solid backend,<br class="hidden sm:block" />
+                    an interface that is <span class="text-gradient">a joy to use</span>.
                 </h2>
 
                 <div class="mt-6 space-y-4 text-base leading-relaxed text-muted">
@@ -53,7 +53,7 @@ defineProps({
                             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z" /><path d="M6 12v5c3 2 9 2 12 0v-5" /></svg>
                         </span>
                         <div>
-                            <dt class="text-xs text-muted">Kampus</dt>
+                            <dt class="text-xs text-muted">Campus</dt>
                             <dd class="text-sm font-semibold text-ink">{{ profile.campus }}</dd>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ defineProps({
                             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
                         </span>
                         <div>
-                            <dt class="text-xs text-muted">Lokasi</dt>
+                            <dt class="text-xs text-muted">Location</dt>
                             <dd class="text-sm font-semibold text-ink">{{ profile.location }}</dd>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ defineProps({
                             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12" /></svg>
                         </span>
                         <div>
-                            <dt class="text-xs text-muted">Fokus</dt>
+                            <dt class="text-xs text-muted">Focus</dt>
                             <dd class="text-sm font-semibold text-ink">{{ profile.focus }} + Vue.js</dd>
                         </div>
                     </div>

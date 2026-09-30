@@ -7,6 +7,7 @@ import './bootstrap';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { reveal } from './directives/reveal';
+import { initCardSpotlight, tilt } from './interactions';
 import SiteLayout from './Layouts/SiteLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Bahtiar Rifai';
@@ -16,7 +17,7 @@ createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
         const page = pages[`./Pages/${name}.vue`];
-        // Semua halaman memakai SiteLayout (navbar + footer) secara default
+        // Every page uses SiteLayout (navbar + footer) by default
         page.default.layout = page.default.layout || SiteLayout;
         return page;
     },
@@ -24,9 +25,12 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .directive('reveal', reveal)
+            .directive('tilt', tilt)
             .mount(el);
     },
     progress: {
         color: '#e879f9',
     },
 });
+
+initCardSpotlight();

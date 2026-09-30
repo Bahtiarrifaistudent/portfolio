@@ -30,12 +30,12 @@ class StoreContactMessageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'message.required' => 'Pesan wajib diisi.',
-            'message.min' => 'Pesan minimal :min karakter.',
-            'message.max' => 'Pesan maksimal :max karakter.',
+            'name.required' => 'Please enter your name.',
+            'email.required' => 'Please enter your email.',
+            'email.email' => 'Please enter a valid email address.',
+            'message.required' => 'Please write a message.',
+            'message.min' => 'Your message must be at least :min characters.',
+            'message.max' => 'Your message may not be longer than :max characters.',
         ];
     }
 }

@@ -1,5 +1,5 @@
-// v-reveal: memunculkan elemen dengan animasi saat masuk viewport.
-// Pakai v-reveal="120" untuk menambahkan delay (ms).
+// v-reveal: animates an element in when it enters the viewport.
+// Use v-reveal="120" to add a delay (ms).
 const observer =
     typeof window !== 'undefined' && 'IntersectionObserver' in window
         ? new IntersectionObserver(

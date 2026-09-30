@@ -3,23 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use Inertia\Response;
 
 /**
- * Semua halaman portfolio. Data diambil dari config/portfolio.php.
- * Data profil dikirim ke semua halaman lewat HandleInertiaRequests.
+ * All portfolio pages. Data comes from config/portfolio.php.
+ * Profile data is shared with every page via HandleInertiaRequests.
  */
 class PageController extends Controller
 {
+    /**
+     * All projects from config. If 'image' is empty, an image is looked up in
+     * public/images/projects/{slug}.(webp|jpg|jpeg|png).
+     */
+    private function allProjects(): Collection
+    {
+        return collect(config('portfolio.projects'))->map(function (array $project) {
+            if (empty($project['image'])) {
+                foreach (['webp', 'jpg', 'jpeg', 'png'] as $ext) {
+                    if (file_exists(public_path("images/projects/{$project['slug']}.{$ext}"))) {
+                        $project['image'] = "/images/projects/{$project['slug']}.{$ext}";
+                        break;
+                    }
+                }
+            }
+
+            return $project;
+        })->values();
+    }
+
     public function home(): Response
     {
-        $projects = collect(config('portfolio.projects'));
-
         return Inertia::render('Home', [
             'stats' => config('portfolio.stats'),
-            'featured' => $projects->firstWhere('featured', true),
-            'latestProjects' => $projects->where('featured', false)->take(3)->values(),
+            'projects' => $this->allProjects(),
             'stackPreview' => collect(config('portfolio.stack'))
                 ->flatten(1)
                 ->where('level', 'core')
@@ -39,13 +57,13 @@ class PageController extends Controller
     public function projects(): Response
     {
         return Inertia::render('Projects/Index', [
-            'projects' => config('portfolio.projects'),
+            'projects' => $this->allProjects(),
         ]);
     }
 
     public function project(string $slug): Response
     {
-        $projects = collect(config('portfolio.projects'))->values();
+        $projects = $this->allProjects();
         $index = $projects->search(fn ($p) => $p['slug'] === $slug);
 
         abort_if($index === false, 404);

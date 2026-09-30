@@ -24,7 +24,7 @@ import {
     siWebrtc,
 } from 'simple-icons';
 
-// LinkedIn tidak lagi tersedia di simple-icons, jadi path-nya ditulis manual.
+// LinkedIn is no longer in simple-icons, so its path is written by hand.
 const linkedin = {
     title: 'LinkedIn',
     hex: '0A66C2',
@@ -58,13 +58,13 @@ const icons = {
 
 const props = defineProps({
     name: { type: String, required: true },
-    // true = pakai warna brand, false = ikut warna teks (currentColor)
+    // true = brand color, false = follow the text color (currentColor)
     brand: { type: Boolean, default: false },
 });
 
 const icon = computed(() => icons[props.name] ?? siLaravel);
 
-// Beberapa brand berwarna hitam/gelap dan tidak terlihat di mode gelap.
+// Some brands are black/dark and would be invisible in dark mode.
 const darkBrands = ['000000', '181717', '1E1E1E', '222222'];
 const fill = computed(() => {
     if (!props.brand) return 'currentColor';

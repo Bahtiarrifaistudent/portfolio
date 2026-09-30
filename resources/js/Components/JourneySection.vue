@@ -15,9 +15,9 @@ const status = {
         <div class="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <div class="lg:sticky lg:top-28 lg:self-start">
                 <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Roadmap</p>
-                <h2 v-reveal="60" class="section-title">Perjalanan belajar saya, dalam bentuk commit.</h2>
+                <h2 v-reveal="60" class="section-title">My learning journey, as a commit log.</h2>
                 <p v-reveal="120" class="mt-4 text-muted">
-                    Apa yang sudah saya kuasai, apa yang sedang dikerjakan, dan apa yang berikutnya.
+                    What I have mastered, what I am working on, and what comes next.
                 </p>
                 <div v-reveal="180" class="card mt-6 inline-flex items-center gap-3 px-4 py-3 font-mono text-xs text-muted">
                     <span class="text-emerald-500">$</span> git log --oneline --graph
@@ -30,7 +30,7 @@ const status = {
                     <span class="absolute top-1.5 left-0 grid size-6 place-items-center">
                         <span class="size-3.5 rounded-full border-2" :class="status[step.status].dot" />
                     </span>
-                    <div class="card p-5 transition hover:border-accent/40">
+                    <div class="card p-5">
                         <div class="flex flex-wrap items-center gap-2">
                             <span class="font-mono text-[11px] text-muted">step-{{ String(i + 1).padStart(2, '0') }}</span>
                             <span class="rounded-md px-2 py-0.5 font-mono text-[11px] font-medium" :class="status[step.status].tag">

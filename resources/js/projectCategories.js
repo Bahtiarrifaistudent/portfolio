@@ -1,4 +1,4 @@
-// Label & warna kategori project. Tambahkan kategori baru di sini.
+// Project category labels & colors. Add new categories here.
 export const projectCategories = {
     web: { label: 'Web', cls: 'text-laravel bg-laravel/10' },
     security: { label: 'Security', cls: 'text-cyan bg-cyan/10' },

@@ -23,9 +23,9 @@ return [
         'location' => 'Indramayu, Jawa Barat',
         'email' => 'bachtiarrifai55@gmail.com',
         // Isi dengan path foto di folder public, contoh: '/images/profile.jpg'
-        'photo' => null,
+        'photo' => '/images/profile.jpg',
         // Isi dengan path CV di folder public, contoh: '/files/cv-bahtiar-rifai.pdf'
-        'cv' => null,
+        'cv' => '/files/cv-bahtiar-rifai.pdf',
         'available' => true,
         'tagline' => 'Membangun aplikasi web yang rapi di belakang layar, nyaman di depan layar.',
         'typed_roles' => [

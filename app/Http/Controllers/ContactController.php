@@ -15,6 +15,6 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        return back()->with('success', 'Pesan terkirim. Terima kasih, saya akan membalas secepatnya!');
+        return back()->with('success', 'Message sent. Thank you, I will get back to you soon!');
     }
 }

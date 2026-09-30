@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Portfolio Bahtiar Rifai - Fullstack Developer dengan fokus backend Laravel, Inertia.js, dan Vue 3. Mahasiswa Politeknik Negeri Indramayu.">
+    <meta name="description" content="Bahtiar Rifai - Fullstack Developer focused on Laravel backend, Inertia.js and Vue 3. Student at Politeknik Negeri Indramayu.">
     <meta name="author" content="Bahtiar Rifai">
     <meta property="og:title" content="Bahtiar Rifai | Fullstack Developer">
     <meta property="og:description" content="Laravel backend, Vue 3 frontend, realtime & API.">
@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#0b0616">
 
 
-    {{-- Terapkan tema sebelum halaman dirender agar tidak berkedip --}}
+    {{-- Apply the theme before render to avoid a flash --}}
     <script>
         (function () {
             try {

@@ -5,7 +5,7 @@ defineProps({
     kicker: { type: String, default: '' },
     title: { type: String, required: true },
     description: { type: String, default: '' },
-    // [{ label, href }] - item terakhir tanpa href
+    // [{ label, href }] - the last item has no href
     breadcrumb: { type: Array, default: () => [] },
 });
 </script>

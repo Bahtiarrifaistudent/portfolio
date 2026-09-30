@@ -18,7 +18,7 @@ const form = useForm({
 });
 
 function submit() {
-    form.post('/kontak', {
+    form.post('/contact', {
         preserveScroll: true,
         onSuccess: () => form.reset(),
     });
@@ -34,13 +34,13 @@ const field =
 
         <div class="container-page relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <div>
-                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Kontak</p>
+                <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />Get in Touch</p>
                 <h2 v-reveal="60" class="section-title">
-                    Punya project atau<br class="hidden sm:block" />
-                    tawaran magang? <span class="text-gradient">Ayo ngobrol.</span>
+                    Have a project or<br class="hidden sm:block" />
+                    an internship opening? <span class="text-gradient">Let's talk.</span>
                 </h2>
                 <p v-reveal="120" class="mt-4 max-w-md text-muted">
-                    Kirim pesan lewat form, atau hubungi saya langsung melalui salah satu kanal di bawah.
+                    Send a message through the form, or reach me directly on any of the channels below.
                 </p>
 
                 <ul class="mt-8 grid gap-3">
@@ -49,7 +49,7 @@ const field =
                             :href="s.url"
                             target="_blank"
                             rel="noopener"
-                            class="group card flex items-center gap-4 p-4 transition hover:border-accent/50"
+                            class="group card flex items-center gap-4 p-4"
                         >
                             <span class="grid size-11 place-items-center rounded-xl bg-surface-2 text-ink transition group-hover:text-accent">
                                 <TechIcon :name="s.icon" class="size-5" />
@@ -64,9 +64,9 @@ const field =
                 </ul>
             </div>
 
-            <form v-reveal="120" class="card p-6 shadow-xl shadow-black/5 sm:p-8" novalidate @submit.prevent="submit">
+            <form v-reveal="120" class="card card-static p-6 shadow-xl shadow-black/5 sm:p-8" novalidate @submit.prevent="submit">
                 <div class="mb-6 flex items-center justify-between">
-                    <p class="font-mono text-xs text-muted"><span class="text-accent">POST</span> /kontak</p>
+                    <p class="font-mono text-xs text-muted"><span class="text-accent">POST</span> /contact</p>
                     <span class="font-mono text-[11px] text-muted">{{ form.message.length }}/2000</span>
                 </div>
 
@@ -83,32 +83,32 @@ const field =
 
                 <div class="grid gap-4 sm:grid-cols-2">
                     <div>
-                        <label for="name" class="mb-1.5 block text-sm font-medium text-ink">Nama</label>
-                        <input id="name" v-model="form.name" type="text" autocomplete="name" placeholder="Nama lengkap" :class="[field, form.errors.name ? 'border-red-500' : 'border-line']" />
+                        <label for="name" class="mb-1.5 block text-sm font-medium text-ink">Name</label>
+                        <input id="name" v-model="form.name" type="text" autocomplete="name" placeholder="Your full name" :class="[field, form.errors.name ? 'border-red-500' : 'border-line']" />
                         <p v-if="form.errors.name" class="mt-1.5 text-xs text-red-500">{{ form.errors.name }}</p>
                     </div>
                     <div>
                         <label for="email" class="mb-1.5 block text-sm font-medium text-ink">Email</label>
-                        <input id="email" v-model="form.email" type="email" autocomplete="email" placeholder="nama@email.com" :class="[field, form.errors.email ? 'border-red-500' : 'border-line']" />
+                        <input id="email" v-model="form.email" type="email" autocomplete="email" placeholder="you@email.com" :class="[field, form.errors.email ? 'border-red-500' : 'border-line']" />
                         <p v-if="form.errors.email" class="mt-1.5 text-xs text-red-500">{{ form.errors.email }}</p>
                     </div>
                 </div>
 
                 <div class="mt-4">
-                    <label for="subject" class="mb-1.5 block text-sm font-medium text-ink">Subjek <span class="font-normal text-muted">(opsional)</span></label>
-                    <input id="subject" v-model="form.subject" type="text" placeholder="Tawaran magang, kolaborasi, ..." :class="[field, form.errors.subject ? 'border-red-500' : 'border-line']" />
+                    <label for="subject" class="mb-1.5 block text-sm font-medium text-ink">Subject <span class="font-normal text-muted">(optional)</span></label>
+                    <input id="subject" v-model="form.subject" type="text" placeholder="Internship offer, collaboration, ..." :class="[field, form.errors.subject ? 'border-red-500' : 'border-line']" />
                     <p v-if="form.errors.subject" class="mt-1.5 text-xs text-red-500">{{ form.errors.subject }}</p>
                 </div>
 
                 <div class="mt-4">
-                    <label for="message" class="mb-1.5 block text-sm font-medium text-ink">Pesan</label>
-                    <textarea id="message" v-model="form.message" rows="5" maxlength="2000" placeholder="Ceritakan kebutuhan Anda..." :class="[field, 'resize-none', form.errors.message ? 'border-red-500' : 'border-line']" />
+                    <label for="message" class="mb-1.5 block text-sm font-medium text-ink">Message</label>
+                    <textarea id="message" v-model="form.message" rows="5" maxlength="2000" placeholder="Tell me about your needs..." :class="[field, 'resize-none', form.errors.message ? 'border-red-500' : 'border-line']" />
                     <p v-if="form.errors.message" class="mt-1.5 text-xs text-red-500">{{ form.errors.message }}</p>
                 </div>
 
                 <button type="submit" class="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60" :disabled="form.processing">
                     <svg v-if="form.processing" class="size-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.6" /></svg>
-                    {{ form.processing ? 'Mengirim...' : 'Kirim Pesan' }}
+                    {{ form.processing ? 'Sending...' : 'Send Message' }}
                 </button>
             </form>
         </div>

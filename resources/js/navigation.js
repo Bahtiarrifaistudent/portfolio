@@ -1,10 +1,10 @@
-// Daftar menu utama. Ubah label atau urutan di sini.
+// Main menu. Change labels or order here.
 export const navLinks = [
-    { href: '/', label: 'Beranda' },
-    { href: '/tentang', label: 'Tentang' },
-    { href: '/project', label: 'Project' },
-    { href: '/pengalaman', label: 'Pengalaman' },
-    { href: '/sertifikat', label: 'Sertifikat' },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/experience', label: 'Experience' },
+    { href: '/certificates', label: 'Certificates' },
 ];
 
 export function isActive(currentUrl, href) {

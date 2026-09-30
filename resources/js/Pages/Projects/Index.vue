@@ -14,7 +14,7 @@ const featured = computed(() => props.projects.filter((p) => p.featured));
 const others = computed(() => props.projects.filter((p) => !p.featured));
 
 const filters = computed(() => [
-    { key: 'all', label: 'Semua' },
+    { key: 'all', label: 'All' },
     ...Object.entries(projectCategories)
         .filter(([key]) => others.value.some((p) => p.category === key))
         .map(([key, c]) => ({ key, label: c.label })),
@@ -25,13 +25,13 @@ const count = (key) => (key === 'all' ? others.value.length : others.value.filte
 </script>
 
 <template>
-    <Head title="Project" />
+    <Head title="Projects" />
 
     <PageHeader
-        kicker="Project"
-        title="Hal-hal yang sudah saya bangun."
-        description="Dari aplikasi web Laravel + Vue, eksperimen keamanan siber, sampai eksplorasi AI. Klik salah satu untuk melihat detailnya."
-        :breadcrumb="[{ label: 'Beranda', href: '/' }, { label: 'Project' }]"
+        kicker="Projects"
+        title="Things I have built."
+        description="From Laravel + Vue web applications to cyber security experiments and AI explorations. Click any project to see the details."
+        :breadcrumb="[{ label: 'Home', href: '/' }, { label: 'Projects' }]"
     />
 
     <section class="py-14 sm:py-20">
@@ -41,7 +41,7 @@ const count = (key) => (key === 'all' ? others.value.length : others.value.filte
             </div>
 
             <div class="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h2 v-reveal class="font-display text-xl font-bold text-ink">Project lainnya</h2>
+                <h2 v-reveal class="font-display text-xl font-bold text-ink">More projects</h2>
                 <div v-reveal="60" class="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
                     <div class="inline-flex gap-2">
                         <button
@@ -70,7 +70,7 @@ const count = (key) => (key === 'all' ? others.value.length : others.value.filte
 
             <div v-reveal class="mt-12 text-center">
                 <a href="https://github.com/Bahtiarrifaistudent?tab=repositories" target="_blank" rel="noopener" class="btn-ghost">
-                    Semua repository di GitHub
+                    All repositories on GitHub
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9" /></svg>
                 </a>
             </div>

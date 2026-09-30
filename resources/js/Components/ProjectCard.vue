@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { categoryOf } from '../projectCategories';
+import ProjectCover from './ProjectCover.vue';
 
 defineProps({
     project: { type: Object, required: true },
@@ -9,11 +10,11 @@ defineProps({
 
 <template>
     <Link
-        :href="`/project/${project.slug}`"
-        class="group card flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/5"
+        :href="`/projects/${project.slug}`"
+        class="group card flex h-full flex-col overflow-hidden"
     >
-        <div v-if="project.image" class="aspect-video overflow-hidden border-b border-line bg-surface-2">
-            <img :src="project.image" :alt="project.title" loading="lazy" class="size-full object-cover transition duration-500 group-hover:scale-105" />
+        <div class="aspect-video overflow-hidden border-b border-line bg-surface-2">
+            <ProjectCover :project="project" />
         </div>
 
         <div class="flex flex-1 flex-col p-6">

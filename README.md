@@ -43,15 +43,15 @@ Untuk production: `npm run build`, lalu set `APP_ENV=production` dan `APP_DEBUG=
 
 | URL | Halaman | File Vue | Data di `config/portfolio.php` |
 | --- | --- | --- | --- |
-| `/` | Beranda | `Pages/Home.vue` | `profile`, `stats`, `projects` (featured), `stack` |
-| `/tentang` | Tentang | `Pages/About.vue` | `profile.bio`, `architecture`, `stack`, `journey` |
-| `/project` | Daftar project | `Pages/Projects/Index.vue` | `projects` |
-| `/project/{slug}` | Detail project | `Pages/Projects/Show.vue` | `projects` |
-| `/pengalaman` | Pengalaman | `Pages/Experience.vue` | `experience` |
-| `/sertifikat` | Sertifikat | `Pages/Certificates.vue` | `certificates` |
-| `/kontak` | Kontak | `Pages/Contact.vue` | `profile.socials` |
+| `/` | Home | `Pages/Home.vue` | `profile`, `stats`, `projects` (featured), `stack` |
+| `/about` | About | `Pages/About.vue` | `profile.bio`, `architecture`, `stack`, `journey` |
+| `/projects` | Project list | `Pages/Projects/Index.vue` | `projects` |
+| `/projects/{slug}` | Project detail | `Pages/Projects/Show.vue` | `projects` |
+| `/experience` | Experience | `Pages/Experience.vue` | `experience` |
+| `/certificates` | Certificates | `Pages/Certificates.vue` | `certificates` |
+| `/contact` | Contact | `Pages/Contact.vue` | `profile.socials` |
 
-Menu navbar diatur di `resources/js/navigation.js`.
+Menu navbar diatur di `resources/js/navigation.js`. URL lama berbahasa Indonesia (`/tentang`, `/project`, `/pengalaman`, `/sertifikat`, `/kontak`) otomatis dialihkan (301) ke URL baru.
 
 ## Mengubah isi website
 

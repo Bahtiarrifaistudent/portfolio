@@ -1,15 +1,21 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { useTheme } from '../composables/useTheme';
+import { useCvDownload } from '../composables/useCvDownload';
 import { isActive, navLinks as links } from '../navigation';
 
-defineProps({
+const props = defineProps({
     profile: { type: Object, required: true },
 });
 
 const page = usePage();
+
+// Text logo: "Bahtiar Rifai" (first word + the rest of the name, the rest in gradient)
+const firstName = computed(() => props.profile.name.split(' ')[0]);
+const lastName = computed(() => props.profile.name.split(' ').slice(1).join(' '));
 const { isDark, toggle } = useTheme();
+const { start: startCv } = useCvDownload();
 const open = ref(false);
 const scrolled = ref(false);
 
@@ -17,7 +23,7 @@ function onScroll() {
     scrolled.value = window.scrollY > 12;
 }
 
-// Tutup menu mobile setiap pindah halaman
+// Close the mobile menu on every page change
 watch(() => page.url, () => (open.value = false));
 
 onMounted(() => {
@@ -34,26 +40,23 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
         :class="scrolled || open ? 'border-b border-line bg-bg/80 backdrop-blur-xl' : 'border-b border-transparent'"
     >
         <nav class="container-page flex h-16 items-center justify-between">
-            <Link href="/" class="group flex items-center gap-2.5">
-                <span
-                    class="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-2 font-display text-sm font-bold text-white shadow-lg shadow-accent/20"
-                >
-                    {{ profile.initials }}
-                </span>
-                <span class="font-mono text-sm text-ink">
-                    {{ profile.short_name.toLowerCase() }}<span class="text-accent">.dev</span>
-                </span>
+            <Link href="/" class="font-display text-xl font-bold tracking-tight text-ink transition hover:opacity-80" :aria-label="profile.name">
+                {{ firstName }}&nbsp;<span class="text-gradient">{{ lastName }}</span>
             </Link>
 
             <ul class="hidden items-center gap-0.5 lg:flex">
                 <li v-for="link in links" :key="link.href">
                     <Link
                         :href="link.href"
-                        class="relative rounded-lg px-3 py-2 text-sm font-medium transition"
+                        class="group relative rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-300"
                         :class="isActive(page.url, link.href) ? 'text-accent' : 'text-muted hover:text-ink'"
                     >
                         {{ link.label }}
-                        <span v-if="isActive(page.url, link.href)" class="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-accent" />
+                        <!-- Underline: fills left-to-right on hover, stays full on the active page -->
+                        <span
+                            class="nav-underline absolute inset-x-3 -bottom-px h-0.5 rounded-full"
+                            :class="isActive(page.url, link.href) ? 'is-active' : ''"
+                        />
                     </Link>
                 </li>
             </ul>
@@ -62,7 +65,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
                 <button
                     type="button"
                     class="grid size-9 place-items-center rounded-xl border border-line bg-surface text-muted transition hover:text-accent"
-                    :aria-label="isDark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap'"
+                    :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
                     @click="toggle"
                 >
                     <svg v-if="isDark" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -74,13 +77,22 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
                     </svg>
                 </button>
 
-                <Link href="/kontak" class="btn-primary hidden !px-4 !py-2 sm:inline-flex">Hubungi</Link>
+                <button
+                    v-if="profile.cv"
+                    type="button"
+                    class="btn-accent hidden !px-4 !py-2 sm:inline-flex"
+                    @click="startCv(profile.cv)"
+                >
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+                    Download CV
+                </button>
+                <Link href="/contact" class="btn-primary hidden !px-4 !py-2 sm:inline-flex">Contact</Link>
 
                 <button
                     type="button"
                     class="grid size-9 place-items-center rounded-xl border border-line bg-surface text-ink lg:hidden"
                     :aria-expanded="open"
-                    aria-label="Buka menu"
+                    aria-label="Open menu"
                     @click="open = !open"
                 >
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -100,17 +112,23 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
             <div v-if="open" class="container-page pb-5 lg:hidden">
                 <ul class="grid gap-1">
                     <li v-for="link in links" :key="link.href">
-                        <a
+                        <Link
                             :href="link.href"
-                            class="flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium text-ink hover:bg-surface-2"
-                            @click="open = false"
+                            class="flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium hover:bg-surface-2"
+                            :class="isActive(page.url, link.href) ? 'bg-surface-2 text-accent' : 'text-ink'"
                         >
                             {{ link.label }}
                             <span class="font-mono text-xs text-muted">{{ link.href }}</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
-                <Link href="/kontak" class="btn-primary mt-3 w-full">Hubungi Saya</Link>
+                <div class="mt-3 grid gap-2" :class="profile.cv ? 'grid-cols-2' : ''">
+                    <button v-if="profile.cv" type="button" class="btn-accent w-full" @click="open = false; startCv(profile.cv)">
+                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+                        Download CV
+                    </button>
+                    <Link href="/contact" class="btn-primary w-full">Contact Me</Link>
+                </div>
             </div>
         </transition>
     </header>
