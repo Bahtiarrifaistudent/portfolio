@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 // Certificate detail popup.
 // Optional fields per certificate in config/portfolio.php:
-//   image, file (PDF), url (verify link), credential_id, expires, description, skills[]
+//   image, file (PDF), credential_id, expires, description, skills[]
 const props = defineProps({
     certificates: { type: Array, required: true },
     // index of the open certificate, null = closed
@@ -163,16 +163,12 @@ onBeforeUnmount(() => {
                             </div>
                         </div>
 
-                        <footer class="grid gap-2 border-t border-line p-5 sm:grid-cols-2">
-                            <a v-if="cert.url" :href="cert.url" target="_blank" rel="noopener" class="btn-accent !py-2.5">
-                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" /><path d="m9 12 2 2 4-4" /></svg>
-                                Verify credential
-                            </a>
-                            <a v-if="cert.file" :href="cert.file" target="_blank" rel="noopener" class="btn-ghost !py-2.5">
+                        <footer class="grid gap-2 border-t border-line p-5">
+                            <a v-if="cert.file" :href="cert.file" target="_blank" rel="noopener" class="btn-accent !py-2.5">
                                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" /><path d="M14 3v6h6" /></svg>
                                 Open PDF
                             </a>
-                            <a v-else-if="cert.image" :href="cert.image" target="_blank" rel="noopener" class="btn-ghost !py-2.5">
+                            <a v-else-if="cert.image" :href="cert.image" target="_blank" rel="noopener" class="btn-accent !py-2.5">
                                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>
                                 Full image
                             </a>

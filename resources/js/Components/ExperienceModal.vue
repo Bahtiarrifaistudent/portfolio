@@ -1,12 +1,13 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import PhotoCarousel from './PhotoCarousel.vue';
 
 // Experience detail popup with tabs: Company / Projects / Certificate.
 // Optional fields per experience entry in config/portfolio.php:
 //   company      => [name, logo, website, location, industry, description, photos[]]
 //   projects     => [[title, description, tech[], url, photos[]], ...]
-//   certificates => [[title, issuer, date, credential_id, url, photos[]], ...]
+//   certificates => [[title, issuer, date, credential_id, file (PDF), photos[]], ...]
 //                   (a single 'certificate' => [...] also works)
 const props = defineProps({
     experience: { type: Object, default: null },
@@ -27,7 +28,7 @@ const certificates = computed(() => e.value?.certificates ?? (e.value?.certifica
 const project = computed(() => projects.value[projectIndex.value]);
 const certificate = computed(() => certificates.value[certIndex.value]);
 
-const companyLabel = computed(() => ({ education: 'Institution', organization: 'Organization' })[e.value?.type] ?? 'Company');
+const companyLabel = computed(() => ({ education: 'Institution', organization: 'Organization', volunteer: 'Organizer' })[e.value?.type] ?? 'Company');
 
 const tabs = computed(() =>
     [
@@ -185,7 +186,12 @@ onBeforeUnmount(() => {
                                     <ul v-if="project.tech?.length" class="mt-4 flex flex-wrap gap-1.5">
                                         <li v-for="t in project.tech" :key="t" class="chip">{{ t }}</li>
                                     </ul>
-                                    <a v-if="project.url" :href="project.url" target="_blank" rel="noopener" class="btn-accent mt-5 w-full !py-2.5">
+                                    <!-- Internal link (/projects/...) opens the project page; external link opens a new tab -->
+                                    <Link v-if="project.url?.startsWith('/')" :href="project.url" class="btn-accent mt-5 w-full !py-2.5">
+                                        View project
+                                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                                    </Link>
+                                    <a v-else-if="project.url" :href="project.url" target="_blank" rel="noopener" class="btn-accent mt-5 w-full !py-2.5">
                                         View project
                                         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9" /></svg>
                                     </a>
@@ -223,9 +229,9 @@ onBeforeUnmount(() => {
                                             <dd class="truncate font-mono text-sm font-semibold text-ink">{{ certificate.credential_id }}</dd>
                                         </div>
                                     </dl>
-                                    <a v-if="certificate.url" :href="certificate.url" target="_blank" rel="noopener" class="btn-accent mt-5 w-full !py-2.5">
-                                        Verify certificate
-                                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                                    <a v-if="certificate.file" :href="certificate.file" target="_blank" rel="noopener" class="btn-accent mt-5 w-full !py-2.5">
+                                        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" /><path d="M14 3v6h6" /></svg>
+                                        Open PDF
                                     </a>
                                 </div>
                             </div>

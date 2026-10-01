@@ -13,17 +13,20 @@ const gradients = {
     web: 'from-[#ff2d20] via-[#c026d3] to-[#7c3aed]',
     security: 'from-[#0891b2] via-[#1e3a8a] to-[#312e81]',
     ai: 'from-[#7c3aed] via-[#c026d3] to-[#f472b6]',
+    mobile: 'from-[#059669] via-[#0891b2] to-[#7c3aed]',
+    robotics: 'from-[#d97706] via-[#dc2626] to-[#7c3aed]',
+    community: 'from-[#e11d48] via-[#c026d3] to-[#f59e0b]',
 };
 const gradient = computed(() => gradients[props.project.category] ?? gradients.web);
 
-const initials = computed(() =>
-    props.project.title
-        .split(/\s+/)
-        .filter((w) => /^[A-Za-z]/.test(w))
-        .slice(0, 2)
-        .map((w) => w[0].toUpperCase())
-        .join(''),
-);
+// Initials from the title (text before ":" only). One-word titles use the first 2 letters.
+// Override per project with 'initials' => 'XX' in config/portfolio.php.
+const initials = computed(() => {
+    if (props.project.initials) return props.project.initials;
+    const words = props.project.title.split(':')[0].split(/\s+/).filter((w) => /^[A-Za-z]/.test(w));
+    if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+    return words.slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+});
 </script>
 
 <template>

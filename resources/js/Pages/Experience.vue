@@ -13,6 +13,7 @@ const types = {
     education: { label: 'Education', icon: 'M22 10 12 5 2 10l10 5 10-5zM6 12v5c3 2 9 2 12 0v-5', cls: 'text-accent bg-accent/10' },
     work: { label: 'Work & Internship', icon: 'M3 7h18v13H3zM8 7V4h8v3', cls: 'text-laravel bg-laravel/10' },
     organization: { label: 'Organization', icon: 'M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20a6 6 0 0 1 12 0M12 20a6 6 0 0 1 10 0', cls: 'text-cyan bg-cyan/10' },
+    volunteer: { label: 'Volunteer', icon: 'M12 20s-7-4.4-9.3-8.6A5.2 5.2 0 0 1 12 6.3a5.2 5.2 0 0 1 9.3 5.1C19 15.6 12 20 12 20z', cls: 'text-rose-500 bg-rose-500/10' },
 };
 const typeOf = (key) => types[key] ?? { label: key, icon: types.work.icon, cls: 'text-muted bg-surface-2' };
 
@@ -32,7 +33,7 @@ function openDetail(e, tab = 'company') {
     selectedTab.value = tab;
     selected.value = e;
 }
-const companyLabel = (e) => ({ education: 'Institution', organization: 'Organization' })[e.type] ?? 'Company';
+const companyLabel = (e) => ({ education: 'Institution', organization: 'Organization', volunteer: 'Organizer' })[e.type] ?? 'Company';
 const certCount = (e) => (e.certificates ?? (e.certificate ? [e.certificate] : [])).length;
 const photoCount = (e) =>
     (e.company?.photos?.length ?? 0) +
