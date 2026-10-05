@@ -38,13 +38,15 @@ class ChatbotController extends Controller
             [['kontak', 'hubungi', 'email', 'e-mail', 'kirim pesan', 'contact', 'reach', 'get in touch', 'wa ', 'whatsapp'], 'contact'],
             [['magang', 'intern', 'freelance', 'kerja sama', 'kolaborasi', 'collaborat', 'hire', 'hiring', 'rekrut', 'lowongan', 'tersedia', 'available', 'open to', 'job'], 'availability'],
             [['sertifikat', 'sertifikasi', 'certificate', 'kursus', 'course'], 'certificates'],
+            [['ai', 'llm', 'lora', 'qlora', 'fine-tun', 'finetun', 'rag', 'langgraph', 'agent', 'hugging', 'ollama', 'vllm', 'nlp', 'machine learning', 'deep learning', 'kecerdasan buatan', 'artificial'], 'ai'],
             [['pengalaman', 'experience', 'organisasi', 'organization', 'riwayat', 'pendidikan', 'education', 'kuliah', 'work history'], 'experience'],
             [['monitoring', 'reverb', 'webrtc', 'geofenc', 'remote desktop', 'project utama', 'main project', 'featured', 'best project', 'unggulan', 'terbaik', 'paling bangga', 'proudest'], 'featured'],
             [['project', 'proyek', 'portofolio', 'portfolio', 'karya', 'aplikasi', 'app', 'built', 'work', 'bikin apa', 'buat apa'], 'projects'],
+            [['security', 'keamanan', 'siber', 'cyber', 'brute force'], 'otherFields'],
+            [['mobile', 'flutter', 'android', 'desktop', 'electron'], 'mobile'],
             [['backend', 'back-end', 'laravel', 'php', 'api', 'database', 'mysql', 'sanctum'], 'backend'],
             [['frontend', 'front-end', 'vue', 'inertia', 'tailwind', 'ui'], 'frontend'],
             [['skill', 'keahlian', 'stack', 'teknologi', 'technolog', 'bahasa pemrograman', 'language', 'tools', 'bisa apa', 'menguasai', 'good at'], 'skills'],
-            [['security', 'keamanan', 'siber', 'cyber', 'brute force', 'ai', 'nlp', 'machine learning'], 'otherFields'],
             [['kampus', 'campus', 'university', 'college', 'kuliah di', 'polindra', 'politeknik', 'lokasi', 'location', 'tinggal', 'domisili', 'dimana', 'di mana', 'where', 'live'], 'location'],
             [['github', 'linkedin', 'sosial', 'social', 'sosmed', 'instagram'], 'socials'],
             [['siapa', 'who', 'tentang', 'about', 'introduce', 'kenalan', 'profil', 'profile', 'bahtiar', 'rifai'], 'about'],
@@ -142,7 +144,7 @@ class ChatbotController extends Controller
         $backend = collect(config('portfolio.stack.Backend', []))->pluck('name')->join(', ');
 
         return $this->answer(
-            "The backend is his main focus. Stack: {$backend}. In Monitoring App he built a REST API with Sanctum, realtime broadcasting with Laravel Reverb, and automatic OpenAPI documentation.",
+            "On the backend he mostly uses Laravel. Stack: {$backend}. In Monitoring App he built a REST API with Sanctum, realtime broadcasting with Laravel Reverb, and automatic OpenAPI documentation.",
             [['label' => 'Monitoring App details', 'url' => '/projects/monitoring-app']],
             ['Frontend stack?', 'Main project', 'Download CV'],
         );
@@ -258,9 +260,29 @@ class ChatbotController extends Controller
     private function otherFields(): array
     {
         return $this->answer(
-            'Beyond web development, he has worked on cyber security projects (simulating and mitigating brute force attacks with Python) and AI (an NLP assistant for Polindra and RiceScanAI).',
+            'Beyond web and AI, he has worked on cyber security projects: simulating and mitigating brute force attacks with Python.',
             [['label' => 'Show projects', 'url' => '/projects']],
-            ['Simulasi Brute Force', 'Asisten NLP Polindra'],
+            ['Simulasi Brute Force', 'What about AI?'],
+        );
+    }
+
+    private function ai(): array
+    {
+        $ai = collect(config('portfolio.stack')['AI & LLM'] ?? [])->pluck('name')->join(', ');
+
+        return $this->answer(
+            'AI Engineering & LLM development is his main interest besides fullstack. He integrates LLM APIs, fine-tunes models with LoRA/QLoRA, and builds AI agents with LangGraph and RAG.'.($ai ? " AI stack: {$ai}." : '').' Projects: an NLP ChatBot for Polindra admissions and RiceScanAI (rice leaf disease detection with InceptionV3).',
+            [['label' => 'See the tech stack', 'url' => '/about'], ['label' => 'AI projects', 'url' => '/projects']],
+            ['Asisten NLP Polindra', 'RiceScanAI', 'Backend stack?'],
+        );
+    }
+
+    private function mobile(): array
+    {
+        return $this->answer(
+            'Besides web, he builds mobile apps with Flutter, desktop apps with Electron, and a Python agent that runs on Windows for the Device Monitoring system.',
+            [['label' => 'Show projects', 'url' => '/projects']],
+            ['Floral Innovators Mobile', 'Main project'],
         );
     }
 

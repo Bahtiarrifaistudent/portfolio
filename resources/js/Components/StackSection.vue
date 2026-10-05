@@ -59,7 +59,7 @@ const items = computed(() => props.stack[active.value] ?? []);
                         :style="{ animationDelay: `${i * 45}ms` }"
                     >
                         <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-surface-2 text-ink transition group-hover:scale-110">
-                            <TechIcon :name="tech.icon" brand class="size-6" />
+                            <TechIcon :name="tech.icon ?? ''" :label="tech.name" brand class="size-6" />
                         </span>
                         <span class="min-w-0">
                             <span class="block text-sm font-semibold text-ink sm:truncate sm:text-base">{{ tech.name }}</span>

@@ -72,7 +72,7 @@ defineProps({
                         </span>
                         <div>
                             <dt class="text-xs text-muted">Focus</dt>
-                            <dd class="text-sm font-semibold text-ink">{{ profile.focus }} + Vue.js</dd>
+                            <dd class="text-sm font-semibold text-ink">{{ profile.focus }}</dd>
                         </div>
                     </div>
                     <div class="card flex items-start gap-3 p-4">

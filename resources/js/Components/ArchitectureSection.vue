@@ -11,12 +11,14 @@ const tone = {
     red: { text: 'text-laravel', bg: 'bg-laravel', soft: 'bg-laravel/10', ring: 'border-laravel', shadow: 'shadow-laravel/25' },
     cyan: { text: 'text-cyan', bg: 'bg-cyan', soft: 'bg-cyan/10', ring: 'border-cyan', shadow: 'shadow-cyan/25' },
     violet: { text: 'text-accent-2', bg: 'bg-accent-2', soft: 'bg-accent-2/10', ring: 'border-accent-2', shadow: 'shadow-accent-2/25' },
+    emerald: { text: 'text-emerald-500', bg: 'bg-emerald-500', soft: 'bg-emerald-500/10', ring: 'border-emerald-500', shadow: 'shadow-emerald-500/25' },
 };
 
 const icons = {
     frontend: 'M3 5h18v12H3zM8 21h8M12 17v4',
     backend: 'M4 5h16v5H4zM4 14h16v5H4zM8 7.5h.01M8 16.5h.01',
     data: 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
+    ai: 'M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2M7 7h10v10H7zM10 10h4v4h-4z',
     tooling: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z',
 };
 
@@ -29,7 +31,7 @@ const current = computed(() => props.layers.find((l) => l.key === selected.value
         <div class="container-page">
             <div class="max-w-2xl">
                 <p v-reveal class="section-kicker"><span class="h-px w-6 bg-accent" />How I Build</p>
-                <h2 v-reveal="60" class="section-title">From a user's click all the way to the database.</h2>
+                <h2 v-reveal="60" class="section-title">From a user's click to the model and the database.</h2>
                 <p v-reveal="120" class="mt-4 text-muted">
                     Every request passes through these layers. Pick one to see what I work on there.
                 </p>
@@ -46,7 +48,7 @@ const current = computed(() => props.layers.find((l) => l.key === selected.value
                     <span class="animate-packet-y absolute -left-1 size-2 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
                 </div>
 
-                <ol class="relative grid gap-4 md:grid-cols-4 md:gap-6">
+                <ol class="relative grid gap-4 md:gap-6" :class="layers.length >= 5 ? 'md:grid-cols-5' : 'md:grid-cols-4'">
                     <li v-for="(layer, i) in layers" :key="layer.key">
                         <button
                             type="button"

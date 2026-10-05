@@ -124,7 +124,7 @@ const shortcuts = [
     <section class="py-20 sm:py-24">
         <div class="container-page text-center">
             <p v-reveal class="section-kicker justify-center"><span class="h-px w-6 bg-accent" />Core Tech Stack<span class="h-px w-6 bg-accent" /></p>
-            <h2 v-reveal="60" class="section-title">Laravel on the back, Vue on the front.</h2>
+            <h2 v-reveal="60" class="section-title">From Laravel and Vue to Flutter and LLMs.</h2>
         </div>
 
         <div v-reveal="120" class="marquee-mask mt-10 grid gap-4">
@@ -138,7 +138,7 @@ const shortcuts = [
                     :aria-hidden="copy === 2"
                 >
                     <li v-for="t in row" :key="t.name" class="card flex shrink-0 items-center gap-3 px-5 py-3.5">
-                        <TechIcon :name="t.icon" brand class="size-6" />
+                        <TechIcon :name="t.icon ?? ''" :label="t.name" brand class="size-6" />
                         <span class="text-sm font-semibold whitespace-nowrap text-ink sm:text-base">{{ t.name }}</span>
                     </li>
                 </ul>
@@ -161,7 +161,7 @@ const shortcuts = [
                 <div class="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                     <div>
                         <h2 class="font-display text-3xl font-bold sm:text-4xl">Have a project or an internship opening?</h2>
-                        <p class="mt-2 max-w-xl text-white/85">I am open to internships, freelance work, and collaboration in web development.</p>
+                        <p class="mt-2 max-w-xl text-white/85">I am open to internships, freelance work, and collaboration in fullstack and AI development.</p>
                     </div>
                     <Link href="/contact" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[#1a0f2e] transition hover:-translate-y-0.5 hover:shadow-xl">
                         Contact Me
