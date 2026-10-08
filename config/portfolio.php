@@ -193,6 +193,8 @@ return [
     'projects' => [
         [
             'slug' => 'monitoring-app',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'remote',
             'title' => 'Device Monitoring App',
             'category' => 'web',
             'featured' => true,

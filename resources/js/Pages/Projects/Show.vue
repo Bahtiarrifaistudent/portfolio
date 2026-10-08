@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import PageHeader from '../../Components/PageHeader.vue';
 import { categoryOf } from '../../projectCategories';
 import ProjectCover from '../../Components/ProjectCover.vue';
+import ProjectGallery from '../../Components/ProjectGallery.vue';
 
 defineProps({
     project: { type: Object, required: true },
@@ -36,8 +37,9 @@ defineProps({
     <section class="py-14 sm:py-20">
         <div class="container-page grid gap-10 lg:grid-cols-[1fr_18rem]">
             <div class="min-w-0">
-                <div v-reveal class="card mb-10 aspect-video overflow-hidden">
-                    <ProjectCover :project="project" large />
+                <!-- Cover: showcase of the real screenshot, or the generated cover -->
+                <div v-reveal class="group card mb-10 aspect-video overflow-hidden">
+                    <ProjectCover :project="project" large center />
                 </div>
 
                 <div v-reveal>
@@ -46,6 +48,14 @@ defineProps({
                         <p v-for="(p, i) in project.description" :key="i">{{ p }}</p>
                     </div>
                     <p v-else class="mt-4 leading-relaxed text-muted">{{ project.summary }}</p>
+                </div>
+
+                <div v-if="project.screenshots?.length > 1" class="mt-12">
+                    <div v-reveal class="flex items-end justify-between gap-4">
+                        <h2 class="font-display text-2xl font-bold text-ink">Inside the App</h2>
+                        <span class="font-mono text-xs text-muted">{{ project.screenshots.length }} views<span class="hidden sm:inline"> · click to enlarge</span></span>
+                    </div>
+                    <ProjectGallery class="mt-6" :shots="project.screenshots" :title="project.title" />
                 </div>
 
                 <div v-if="project.features.length" class="mt-12">
