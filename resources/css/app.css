@@ -639,3 +639,48 @@
         display: none;
     }
 }
+
+/* Project cover decorations */
+@keyframes cover-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes cover-twinkle {
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.15) rotate(45deg);
+    }
+}
+
+@keyframes cover-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+}
+
+.cover-float {
+    animation: cover-float 4.5s ease-in-out infinite;
+}
+
+.cover-twinkle {
+    animation: cover-twinkle 3.2s ease-in-out infinite;
+}
+
+.cover-pulse {
+    animation: cover-pulse 1.4s ease-in-out infinite;
+}

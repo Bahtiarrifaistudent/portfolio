@@ -11,8 +11,9 @@ const props = defineProps({
     title: { type: String, default: '' },
 });
 
-const desktop = computed(() => props.shots.map((s, i) => ({ ...s, i })).filter((s) => s.type !== 'mobile'));
+const desktop = computed(() => props.shots.map((s, i) => ({ ...s, i })).filter((s) => s.type === 'desktop' || !s.type));
 const mobile = computed(() => props.shots.map((s, i) => ({ ...s, i })).filter((s) => s.type === 'mobile'));
+const photos = computed(() => props.shots.map((s, i) => ({ ...s, i })).filter((s) => s.type === 'photo'));
 // Shape of the tiles = shape of the first desktop screenshot (so rows line up)
 const ratio = computed(() => desktop.value[0]?.ratio ?? 1.6);
 const wide = (k) => k === 0 && desktop.value.length % 2 === 1 && desktop.value.length > 1;
@@ -85,10 +86,25 @@ function onTouchEnd(e) {
             </li>
         </ul>
 
+        <!-- Photos (robotics, events): masonry, keeps portrait & landscape shapes -->
+        <ul v-if="photos.length" class="columns-2 gap-4 sm:columns-3 [&>li]:mb-4">
+            <li v-for="(s, k) in photos" :key="s.src" v-reveal="k * 50" class="break-inside-avoid">
+                <button
+                    type="button"
+                    class="group card relative block w-full overflow-hidden text-left"
+                    :aria-label="`Open photo: ${s.caption}`"
+                    @click="open = s.i"
+                >
+                    <img :src="s.src" :alt="s.caption" loading="lazy" class="block h-auto w-full transition duration-700 group-hover:scale-[1.04]" />
+                    <span class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 text-sm font-semibold text-white opacity-0 transition duration-300 group-hover:opacity-100">{{ s.caption }}</span>
+                </button>
+            </li>
+        </ul>
+
         <!-- Phone screenshots: row of phone frames -->
-        <ul v-if="mobile.length" class="mt-6 flex gap-5 overflow-x-auto pb-2 sm:justify-center">
-            <li v-for="(s, k) in mobile" :key="s.src" v-reveal="k * 60" class="shrink-0">
-                <button type="button" class="group block w-40 text-center sm:w-48" @click="open = s.i">
+        <ul v-if="mobile.length" class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4" :class="desktop.length ? 'mt-6' : ''">
+            <li v-for="(s, k) in mobile" :key="s.src" v-reveal="k * 60">
+                <button type="button" class="group mx-auto block w-full max-w-[13rem] text-center" @click="open = s.i">
                     <span class="block overflow-hidden rounded-[1.75rem] border-[6px] border-ink/90 bg-ink shadow-xl transition duration-300 group-hover:-translate-y-1">
                         <img :src="s.src" :alt="s.caption" loading="lazy" class="aspect-[9/19] w-full object-cover object-top" />
                     </span>

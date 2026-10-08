@@ -22,6 +22,28 @@ class PageController extends Controller
     {
         return collect(config('portfolio.projects'))->map(function (array $project) {
             $project['screenshots'] = $this->screenshots($project);
+            $project['media'] = $this->isPhotoProject($project) ? 'photo' : 'screen';
+
+            // Cover choice: 'cover_main' => 'tim' picks the photo/screenshot whose caption or file name
+            // contains that word. A project sharing another one's photos ('gallery_from') uses the
+            // second photo by default, so both cards do not look the same.
+            if (empty($project['image']) && ! empty($project['screenshots'])) {
+                $pick = null;
+                if (! empty($project['cover_main'])) {
+                    foreach ($project['screenshots'] as $shot) {
+                        if (Str::contains(Str::lower($shot['caption'].' '.basename($shot['src'])), Str::lower($project['cover_main']))) {
+                            $pick = $shot['src'];
+                            break;
+                        }
+                    }
+                }
+                if (! $pick && ! empty($project['gallery_from']) && count($project['screenshots']) > 1) {
+                    $pick = $project['screenshots'][1]['src'];
+                }
+                if ($pick) {
+                    $project['image'] = $pick;
+                }
+            }
 
             // Second image on the cover: 'cover_second' => 'remote' picks the screenshot whose
             // caption or file name contains that word (otherwise the next screenshot is used)
@@ -51,6 +73,12 @@ class PageController extends Controller
 
             return $project;
         })->values();
+    }
+
+    private function isPhotoProject(array $project): bool
+    {
+        return ($project['media'] ?? null) === 'photo'
+            || (! isset($project['media']) && in_array($project['category'] ?? '', ['robotics', 'community'], true));
     }
 
     private function coverFile(string $slug): bool
@@ -90,10 +118,15 @@ class PageController extends Controller
                 : ['src' => $s['src'], 'caption' => $s['caption'] ?? $caption($s['src']), 'type' => $s['type'] ?? 'desktop', 'ratio' => $ratio($s['src'])])->values()->all();
         }
 
-        $dir = public_path("images/projects/{$project['slug']}");
+        // 'gallery_from' => 'other-slug' reuses another project's photos (e.g. KRTI 2024 & 2025)
+        $folder = $project['gallery_from'] ?? $project['slug'];
+        $dir = public_path("images/projects/{$folder}");
         if (! is_dir($dir)) {
             return [];
         }
+
+        // Photo projects (robotics, community, or 'media' => 'photo'): real photos, not app screenshots
+        $photo = $this->isPhotoProject($project);
 
         // Optional captions.json in the same folder: {"01-dashboard.jpg": "Dashboard", ...}
         $captions = is_file("{$dir}/captions.json") ? (json_decode(file_get_contents("{$dir}/captions.json"), true) ?: []) : [];
@@ -102,10 +135,11 @@ class PageController extends Controller
             ->filter(fn ($f) => $f[0] !== '.' && preg_match('/\.(webp|jpe?g|png)$/i', $f))
             ->sort(SORT_NATURAL)
             ->map(fn ($f) => [
-                'src' => "/images/projects/{$project['slug']}/{$f}",
+                'src' => "/images/projects/{$folder}/{$f}",
                 'caption' => $captions[$f] ?? $caption($f),
-                'type' => preg_match('/mobile\.[a-z]+$/i', $f) ? 'mobile' : 'desktop',
-                'ratio' => $ratio("/images/projects/{$project['slug']}/{$f}"),
+                // Photos stay photos; portrait screenshots are shown in phone frames automatically
+                'type' => $photo ? 'photo' : (preg_match('/mobile\.[a-z]+$/i', $f) || $ratio("/images/projects/{$folder}/{$f}") < 0.8 ? 'mobile' : 'desktop'),
+                'ratio' => $ratio("/images/projects/{$folder}/{$f}"),
             ])
             ->values()
             ->all();

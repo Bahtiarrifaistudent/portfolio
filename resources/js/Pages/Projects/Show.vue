@@ -52,8 +52,8 @@ defineProps({
 
                 <div v-if="project.screenshots?.length > 1" class="mt-12">
                     <div v-reveal class="flex items-end justify-between gap-4">
-                        <h2 class="font-display text-2xl font-bold text-ink">Inside the App</h2>
-                        <span class="font-mono text-xs text-muted">{{ project.screenshots.length }} views<span class="hidden sm:inline"> · click to enlarge</span></span>
+                        <h2 class="font-display text-2xl font-bold text-ink">{{ project.media === 'photo' ? 'Documentation' : 'Inside the App' }}</h2>
+                        <span class="font-mono text-xs text-muted">{{ project.screenshots.length }} {{ project.media === 'photo' ? 'photos' : 'views' }}<span class="hidden sm:inline"> · click to enlarge</span></span>
                     </div>
                     <ProjectGallery class="mt-6" :shots="project.screenshots" :title="project.title" />
                 </div>

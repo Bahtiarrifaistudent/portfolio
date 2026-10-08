@@ -170,15 +170,30 @@ if (!top && !bottom && !left && !right) {
 }
 
 const outW = W - left - right, outH = H - top - bottom;
-for (const f of group) {
+const save = (pipeline, f, tmp) => (/\.png$/i.test(f) ? pipeline.png() : /\.webp$/i.test(f) ? pipeline.webp({ quality: 85 }) : pipeline.jpeg({ quality: 85, mozjpeg: true })).toFile(tmp);
+const skipped = [];
+for (const [i, f] of files.entries()) {
     const src = join(dir, f);
     const tmp = join(dir, `.tmp-${f}`);
-    const pipeline = sharp(src).extract({ left, top, width: outW, height: outH });
-    await (/\.png$/i.test(f) ? pipeline.png() : /\.webp$/i.test(f) ? pipeline.webp({ quality: 85 }) : pipeline.jpeg({ quality: 85, mozjpeg: true })).toFile(tmp);
+    const m = metas[i];
+    // Other sizes of the same screen shape (e.g. scaled down in Word) get the same crop, scaled
+    const k = m.width / W;
+    if (Math.abs(m.height / m.width - H / W) > 0.02) {
+        skipped.push(f);
+        continue;
+    }
+    const box = {
+        left: Math.round(left * k),
+        top: Math.round(top * k),
+        width: Math.max(1, Math.round(m.width - (left + right) * k)),
+        height: Math.max(1, Math.round(m.height - (top + bottom) * k)),
+    };
+    box.width = Math.min(box.width, m.width - box.left);
+    box.height = Math.min(box.height, m.height - box.top);
+    await save(sharp(src).extract(box), f, tmp);
     await rename(tmp, src);
-    console.log(`OK ${f} -> ${outW}x${outH}`);
+    console.log(`OK ${f} -> ${box.width}x${box.height}`);
 }
-const skipped = files.filter((f) => !group.includes(f));
-if (skipped.length) console.log(`Skipped (different size, crop manually): ${skipped.join(', ')}`);
+if (skipped.length) console.log(`Skipped (different screen shape, crop manually): ${skipped.join(', ')}`);
 const prev = done ?? [0, 0, 0, 0];
 await writeFile(marker, [top, bottom, left, right].map((v, i) => v + (prev[i] || 0)).join(',') + '\n');

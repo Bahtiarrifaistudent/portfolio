@@ -244,6 +244,8 @@ return [
         ],
         [
             'slug' => 'ricescanai',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'Rice Scan',
             'title' => 'RiceScanAI',
             'category' => 'ai',
             'featured' => false,
@@ -286,6 +288,8 @@ return [
         ],
         [
             'slug' => 'krti-2025-racing-plane',
+            // Foto sama dengan KRTI 2024 (dibaca dari folder project itu)
+            'gallery_from' => 'krti-2024-racing-plane',
             'title' => 'KRTI 2025 - Racing Plane',
             'category' => 'robotics',
             'featured' => false,
@@ -308,6 +312,8 @@ return [
         ],
         [
             'slug' => 'floral-innovators-mobile',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'login',
             'title' => 'Floral Innovators Mobile',
             'category' => 'mobile',
             'featured' => false,
@@ -331,6 +337,8 @@ return [
         ],
         [
             'slug' => 'floral-innovators',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'login',
             'title' => 'Floral Innovators Web',
             'category' => 'web',
             'featured' => false,
@@ -354,6 +362,8 @@ return [
         ],
         [
             'slug' => 'krti-2024-racing-plane',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'launcher ',
             'title' => 'KRTI 2024 - Racing Plane',
             'category' => 'robotics',
             'featured' => false,
@@ -376,6 +386,8 @@ return [
         ],
         [
             'slug' => 'inventaris-bmn',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'login',
             'title' => 'Sistem Inventaris & Peminjaman BMN',
             'category' => 'web',
             'featured' => false,
@@ -417,6 +429,8 @@ return [
         ],
         [
             'slug' => 'smart-city-indramayu',
+            // Gambar kedua di sampul: screenshot yang keterangan/nama filenya mengandung kata ini
+            'cover_second' => 'argumentative writing and speech ',
             'title' => 'Smart City Indramayu',
             'category' => 'web',
             'featured' => false,
