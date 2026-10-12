@@ -4,6 +4,7 @@ import PageHeader from '../../Components/PageHeader.vue';
 import { categoryOf } from '../../projectCategories';
 import ProjectCover from '../../Components/ProjectCover.vue';
 import ProjectGallery from '../../Components/ProjectGallery.vue';
+import TechIcon from '../../Components/TechIcon.vue';
 
 defineProps({
     project: { type: Object, required: true },
@@ -30,7 +31,12 @@ defineProps({
                 Repository GitHub
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9" /></svg>
             </a>
-            <span v-if="!project.url && !project.demo" class="chip !px-3 !py-2 !text-xs">Private repository · demo available on request</span>
+            <a v-if="project.figma" :href="project.figma" target="_blank" rel="noopener" :class="project.demo || project.url ? 'btn-ghost' : 'btn-primary'">
+                <TechIcon name="figma" class="size-4" />
+                View Design in Figma
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9" /></svg>
+            </a>
+            <span v-if="!project.url && !project.demo && !project.figma" class="chip !px-3 !py-2 !text-xs">Private repository · demo available on request</span>
         </div>
     </PageHeader>
 

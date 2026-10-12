@@ -33,7 +33,7 @@ defineProps({
                         View Details
                         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                     </Link>
-                    <span v-if="!project.url" class="inline-flex items-center gap-2 font-mono text-xs text-muted">
+                    <span v-if="!project.url && !project.figma" class="inline-flex items-center gap-2 font-mono text-xs text-muted">
                         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
                         Private repository
                     </span>

@@ -23,6 +23,7 @@ const gradients = {
     mobile: 'from-[#059669] via-[#0891b2] to-[#7c3aed]',
     robotics: 'from-[#d97706] via-[#dc2626] to-[#7c3aed]',
     community: 'from-[#e11d48] via-[#c026d3] to-[#f59e0b]',
+    design: 'from-[#f472b6] via-[#a855f7] to-[#6366f1]',
 };
 const gradient = computed(() => gradients[props.project.category] ?? gradients.web);
 const shots = computed(() => props.project.screenshots ?? []);

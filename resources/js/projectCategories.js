@@ -6,6 +6,7 @@ export const projectCategories = {
     mobile: { label: 'Mobile', cls: 'text-emerald-500 bg-emerald-500/10' },
     robotics: { label: 'Robotics', cls: 'text-amber-500 bg-amber-500/10' },
     community: { label: 'Community', cls: 'text-rose-500 bg-rose-500/10' },
+    design: { label: 'UI/UX Design', cls: 'text-pink-500 bg-pink-500/10' },
 };
 
 export function categoryOf(key) {
