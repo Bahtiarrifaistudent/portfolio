@@ -27,18 +27,19 @@ return [
         // Isi dengan path CV di folder public, contoh: '/files/cv-bahtiar-rifai.pdf'
         'cv' => '/files/cv-bahtiar-rifai.pdf',
         'available' => true,
-        'tagline' => 'Membangun aplikasi yang rapi dari backend sampai layar, lalu menghadirkan AI di dalamnya.',
+        'tagline' => 'Merancang tampilan yang nyaman dipakai dan membangun aplikasinya dari backend sampai layar, lalu menghadirkan AI di dalamnya.',
         'typed_roles' => [
             'Fullstack Developer',
             'AI Engineer',
             'LLM & AI Agent Builder',
             'Laravel + Vue Developer',
             'Flutter Mobile Developer',
+            'UI/UX Designer',
         ],
         'bio' => [
-            'Mahasiswa Sarjana Terapan Sistem Informasi Kota Cerdas di Politeknik Negeri Indramayu dengan pengalaman membangun aplikasi web, mobile, dan desktop secara fullstack, serta minat kuat di AI Engineering & LLM Development.',
+            'Mahasiswa Sarjana Terapan Sistem Informasi Kota Cerdas di Politeknik Negeri Indramayu dengan pengalaman membangun aplikasi web, mobile, dan desktop secara fullstack, merancang UI/UX di Figma, serta minat kuat di AI Engineering & LLM Development.',
             'Terbiasa mengintegrasikan LLM API, melakukan fine-tuning model dengan LoRA/QLoRA, dan membangun AI agent dengan LangGraph dan RAG. Saya juga membangun ChatBot PMB berbasis NLP untuk Polindra dan RiceScanAI, sistem deteksi penyakit daun padi berbasis Deep Learning.',
-            'Di sisi produksi, saat magang sebagai Full Stack Web Developer di Samara saya mengembangkan sistem Device Monitoring real-time (Laravel, Vue, Reverb, WebRTC, dan agent Windows) serta SIMUH, platform manajemen umrah & haji multi-peran. Saya terbiasa merancang role-based access, sistem real-time, dan integrasi pihak ketiga seperti payment gateway.',
+            'Di sisi produksi, saat magang sebagai Full Stack Web Developer di Samara saya mengembangkan sistem Device Monitoring real-time (Laravel, Vue, Reverb, WebRTC, dan agent Windows) serta SIMUH, platform manajemen umrah & haji multi-peran. Saya terbiasa merancang role-based access, sistem real-time, dan integrasi pihak ketiga seperti payment gateway. Sebelum membangun, saya juga merancang alur pengguna dan tampilan aplikasi di Figma, seperti pada desain UI/UX aplikasi KostFinder.',
         ],
         'socials' => [
             ['label' => 'GitHub', 'icon' => 'github', 'url' => 'https://github.com/Bahtiarrifaistudent', 'handle' => 'Bahtiarrifaistudent'],
@@ -48,9 +49,9 @@ return [
     ],
 
     'stats' => [
-        ['value' => '13', 'label' => 'Project dibangun'],
+        ['value' => '14', 'label' => 'Project dibangun'],
         ['value' => '137', 'label' => 'Kontribusi setahun terakhir'],
-        ['value' => '4', 'label' => 'Web, mobile, desktop, AI'],
+        ['value' => '5', 'label' => 'Web, mobile, desktop, AI, UI/UX'],
     ],
 
     /*
@@ -59,11 +60,11 @@ return [
     'architecture' => [
         [
             'key' => 'frontend',
-            'title' => 'Frontend',
-            'subtitle' => 'Vue, React, Flutter',
+            'title' => 'Design & Frontend',
+            'subtitle' => 'Figma, Vue, Flutter',
             'color' => 'fuchsia',
-            'description' => 'Antarmuka web dengan Vue 3 + Inertia.js atau React/Next.js, aplikasi mobile dengan Flutter, dan aplikasi desktop dengan Electron.',
-            'items' => ['Vue 3 + Inertia.js', 'React / Next.js', 'Flutter', 'Electron', 'Tailwind CSS v4'],
+            'description' => 'Dimulai dari alur pengguna, wireframe, dan prototype UI/UX di Figma, lalu diwujudkan menjadi antarmuka web dengan Vue 3 + Inertia.js atau React/Next.js, aplikasi mobile dengan Flutter, dan aplikasi desktop dengan Electron.',
+            'items' => ['Figma UI/UX', 'Vue 3 + Inertia.js', 'React / Next.js', 'Flutter', 'Electron', 'Tailwind CSS v4'],
         ],
         [
             'key' => 'backend',
@@ -94,8 +95,8 @@ return [
             'title' => 'DevOps',
             'subtitle' => 'Git, Docker, CI/CD',
             'color' => 'violet',
-            'description' => 'Versioning dengan Git, container dengan Docker di Linux, perancangan pipeline CI/CD, serta desain UI di Figma.',
-            'items' => ['Git & GitHub', 'Docker', 'Linux', 'CI/CD Pipeline', 'Figma'],
+            'description' => 'Versioning dengan Git, container dengan Docker di Linux, perancangan pipeline CI/CD, serta pengujian API dengan Postman.',
+            'items' => ['Git & GitHub', 'Docker', 'Linux', 'CI/CD Pipeline', 'Postman'],
         ],
     ],
 
@@ -127,6 +128,15 @@ return [
             ['name' => 'Electron', 'icon' => 'electron', 'level' => 'used', 'note' => 'Desktop app'],
             ['name' => 'Python Agent', 'icon' => 'python', 'level' => 'core', 'note' => 'Windows agent'],
             ['name' => 'Firebase FCM', 'icon' => 'firebase', 'level' => 'used', 'note' => 'Push notification'],
+        ],
+        'UI/UX Design' => [
+            ['name' => 'Figma', 'icon' => 'figma', 'level' => 'core', 'note' => 'UI design & prototype'],
+            ['name' => 'Wireframing', 'icon' => null, 'level' => 'used', 'note' => 'Low-fidelity layout'],
+            ['name' => 'Prototyping', 'icon' => null, 'level' => 'used', 'note' => 'Interactive flow'],
+            ['name' => 'User Flow', 'icon' => null, 'level' => 'used', 'note' => 'User journey'],
+            ['name' => 'Mobile App Design', 'icon' => null, 'level' => 'used', 'note' => 'KostFinder'],
+            ['name' => 'Responsive Design', 'icon' => null, 'level' => 'used', 'note' => 'Web & mobile'],
+            ['name' => 'Canva', 'icon' => null, 'level' => 'used', 'note' => 'Graphic design'],
         ],
         'Backend' => [
             ['name' => 'Laravel', 'icon' => 'laravel', 'level' => 'core', 'note' => 'v12'],
@@ -174,8 +184,6 @@ return [
             ['name' => 'Composer', 'icon' => 'composer', 'level' => 'core', 'note' => 'PHP deps'],
             ['name' => 'npm / pnpm', 'icon' => 'pnpm', 'level' => 'core', 'note' => 'JS deps'],
             ['name' => 'Laragon', 'icon' => null, 'level' => 'used', 'note' => 'Local server'],
-            ['name' => 'Figma', 'icon' => 'figma', 'level' => 'used', 'note' => 'UI design'],
-            ['name' => 'Canva', 'icon' => null, 'level' => 'used', 'note' => 'Graphic design'],
             ['name' => 'Kali Linux', 'icon' => 'kalilinux', 'level' => 'used', 'note' => 'Security lab'],
             ['name' => 'OWASP', 'icon' => 'owasp', 'level' => 'used', 'note' => 'Web security'],
         ],
@@ -184,7 +192,7 @@ return [
     /*
     | Project. Setiap project punya halaman detail di /project/{slug}.
     | slug     : alamat halaman detail (huruf kecil, pakai tanda -)
-    | category : web | security | ai
+    | category : web | security | ai | mobile | robotics | community | design (UI/UX)
     | featured : true = tampil besar di Beranda dan paling atas di halaman Project
     | url      : link repository (null jika privat)
     | demo     : link demo/live (null jika tidak ada)

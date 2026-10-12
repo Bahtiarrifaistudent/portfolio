@@ -73,7 +73,8 @@ onBeforeUnmount(() => clearTimeout(typeTimer));
                 </p>
 
                 <p v-reveal="240" class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                    {{ profile.tagline }} Building
+                    {{ profile.tagline }} From
+                    <span class="font-semibold text-pink-500">UI/UX design</span> in Figma to
                     <span class="font-semibold text-laravel">fullstack</span> apps for web, mobile, and desktop, with a strong focus on
                     <span class="font-semibold text-emerald-500">AI &amp; LLM engineering</span>.
                 </p>

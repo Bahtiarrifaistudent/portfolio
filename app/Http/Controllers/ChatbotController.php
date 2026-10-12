@@ -41,6 +41,7 @@ class ChatbotController extends Controller
             [['ai', 'llm', 'lora', 'qlora', 'fine-tun', 'finetun', 'rag', 'langgraph', 'agent', 'hugging', 'ollama', 'vllm', 'nlp', 'machine learning', 'deep learning', 'kecerdasan buatan', 'artificial'], 'ai'],
             [['pengalaman', 'experience', 'organisasi', 'organization', 'riwayat', 'pendidikan', 'education', 'kuliah', 'work history'], 'experience'],
             [['monitoring', 'reverb', 'webrtc', 'geofenc', 'remote desktop', 'project utama', 'main project', 'featured', 'best project', 'unggulan', 'terbaik', 'paling bangga', 'proudest'], 'featured'],
+            [['ui/ux', 'ui ux', 'ux', 'figma', 'desain', 'design', 'wireframe', 'prototyp', 'mockup', 'kostfinder', 'kost finder'], 'design'],
             [['project', 'proyek', 'portofolio', 'portfolio', 'karya', 'aplikasi', 'app', 'built', 'work', 'bikin apa', 'buat apa'], 'projects'],
             [['security', 'keamanan', 'siber', 'cyber', 'brute force'], 'otherFields'],
             [['mobile', 'flutter', 'android', 'desktop', 'electron'], 'mobile'],
@@ -135,7 +136,7 @@ class ChatbotController extends Controller
         return $this->answer(
             "Here is the tech stack:\n{$lines}",
             [['label' => 'See the full tech stack', 'url' => '/about']],
-            ['Backend stack?', 'Frontend stack?', 'Show projects'],
+            ['Backend stack?', 'Frontend stack?', 'UI/UX design?'],
         );
     }
 
@@ -274,6 +275,17 @@ class ChatbotController extends Controller
             'AI Engineering & LLM development is his main interest besides fullstack. He integrates LLM APIs, fine-tunes models with LoRA/QLoRA, and builds AI agents with LangGraph and RAG.'.($ai ? " AI stack: {$ai}." : '').' Projects: an NLP ChatBot for Polindra admissions and RiceScanAI (rice leaf disease detection with InceptionV3).',
             [['label' => 'See the tech stack', 'url' => '/about'], ['label' => 'AI projects', 'url' => '/projects']],
             ['Asisten NLP Polindra', 'RiceScanAI', 'Backend stack?'],
+        );
+    }
+
+    private function design(): array
+    {
+        $design = collect(config('portfolio.stack')['UI/UX Design'] ?? [])->pluck('name')->join(', ');
+
+        return $this->answer(
+            'Before building, he designs the user flow and screens in Figma: wireframes, high-fidelity UI, and interactive prototypes. An example is KostFinder, a UI/UX design for an app that helps people find a boarding house (kos).'.($design ? " Design tools & skills: {$design}." : ''),
+            [['label' => 'See KostFinder', 'url' => '/projects/kostfinder'], ['label' => 'See the tech stack', 'url' => '/about']],
+            ['Frontend stack?', 'Mobile apps?', 'Show projects'],
         );
     }
 
